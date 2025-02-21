@@ -2,12 +2,12 @@
   <div>
     <div class="container-fluid">
 
-      <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Главная</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Категории</li>
-        </ol>
-      </nav>
+<!--      <nav style="&#45;&#45;bs-breadcrumb-divider: '';" aria-label="breadcrumb">-->
+<!--        <ol class="breadcrumb">-->
+<!--          <li class="breadcrumb-item"><a href="/">Главная</a></li>-->
+<!--          <li class="breadcrumb-item active" aria-current="page">Категории</li>-->
+<!--        </ol>-->
+<!--      </nav>-->
       <div class="row">
         <div v-for="item in categoryDataSource" :key="item.id" class="col-6 col-md-4 col-lg-3">
           <div  class="category-card">
