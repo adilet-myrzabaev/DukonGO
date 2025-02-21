@@ -129,14 +129,14 @@
                     <div class="product-item">
 <!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
                       <figure>
-                        <a href="#" title="Product Title">
+                        <a href="#" :title="item.caption">
                           <img :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
                         </a>
                       </figure>
                       <div class="product-body">
                         <h3 class="product__caption">{{ item.caption }}</h3>
                         <div>
-                          <div class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="price">{{ item.price }} c</span>
                             <span class="qty">{{item.unit}}</span>
                           </div>
@@ -213,7 +213,10 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 
 onMounted(async() => {
 
-  await commodityDataSource.get()
+  await Promise.all([
+    commodityDataSource.get(),
+    cartStore.get()
+  ])
 })
 </script>
 

@@ -5,6 +5,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("./login.css");
 @import url("./cart.css");
+@import url("./categories.css");
+@import url("./breadcrumb.css");
 :root {
     --header-height       : 160px;
     --header-height-min   : 80px;
@@ -420,8 +422,6 @@ h1,h2,h3,h4,h5,h6 {
     gap: 1rem;
 
 }
-.swiper-slide {
-}
 .btn-link {
     margin-right: 30px;
     font-weight: 600;
@@ -526,9 +526,9 @@ h1,h2,h3,h4,h5,h6 {
     line-height: 25px;
     text-transform: capitalize;
     color: #333333;
-    height: 2rem;
+    height: 3rem;
     text-overflow: ellipsis;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
 }
 .product-item figure {
@@ -596,7 +596,7 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     padding: 0;
 }
- .btn-number {
+.btn-number {
     width: 26px;
     height: 26px;
     line-height: 1;
@@ -607,12 +607,12 @@ h1,h2,h3,h4,h5,h6 {
     color: #222;
     padding: 0;
 }
- .input-number {
+.input-number {
      padding: 0 10px;
      line-height: 100%;
      align-self: center;
      margin-top: 3px;
- }
+}
 
 
 /* floating image */

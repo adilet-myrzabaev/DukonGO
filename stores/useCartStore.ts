@@ -7,7 +7,6 @@ export const useCartStore = defineStore("cart", () => {
 
     const totalSum = computed(() => {
         const total = cartItems.value.reduce((t, item) => {
-            console.log(t, item); // Логируем цену каждого товара
             return t + item.price * item.count; // Суммируем общую стоимость
         }, 0); // Начальное значение аккумулятора — 0
 
@@ -26,16 +25,75 @@ export const useCartStore = defineStore("cart", () => {
         return cartItems.value.some(cartItem => cartItem.productId === product.id);
     }
 
-    const increment = async (product: any) => {
-        console.log(cart.value)
-        const pr = cartItems.value.find(p => p.id === product.id);
+    const incrementCart = async (product: any) => {
         console.log(product)
+        const pr = cartItems.value.find(p => p.id === product.id);
         if (product.count >= product.productCount){
             return;
         }
 
-        product.count = product.count + 1;
+        product.count++;
+
+        try {
+            const model = {
+                "productId": product.productId,
+                "cartId": cart.value.id,
+                "count": product.count,
+            }
+
+            const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            console.log(data)
+            await get()
+
+            if (pr) {
+                pr.value.count = product.count;   // cartItems.value = data
+            } else{
+                cartItems.value.push(product)
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const decrementCart = async(product: any) => {
         console.log(product)
+        const pr = cartItems.value.find(p => {
+            return p.id === product.id
+        } );
+        console.log(pr)
+        product.count--;
+
+        if (product.count == 0){
+            try {
+                await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${pr.id}`);
+                cartItems.value = cartItems.value.filter(p => p.productId !== product.id);
+                await get()
+            }catch(err){
+                console.log(err)
+            }
+            return;
+        }
+
+        if (pr) {
+            const model = {
+                "productId": product.productId,
+                "cartId": product.cartId,
+                "count": product.count,
+            }
+            await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+        }
+    }
+
+    const increment = async (product: any) => {
+
+
+
+        const pr = cartItems.value.find(p => p.id === product.id);
+        if (product.count >= product.productCount) {
+            return;
+        }
+
+        product.count++;
 
         try {
             const model = {
@@ -45,9 +103,9 @@ export const useCartStore = defineStore("cart", () => {
             }
 
             const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            await get()
 
             if (pr) {
-                console.log(data)
                 pr.value.count = product.count;   // cartItems.value = data
             } else{
                 cartItems.value.push(product)
@@ -55,22 +113,24 @@ export const useCartStore = defineStore("cart", () => {
         }catch(err){
             console.log(err)
         }
-
-
-
     }
 
     const decrement = async (product: any) => {
-        console.log(product)
-        console.log(cartItems.value)
-        const pr = cartItems.value.find(p => p.id === product.id);
-        console.log(pr)
-        pr.count = pr.count - 1;
-        if (pr.count == 0){
+        if (product.count < 0){
+            console.warn("dasasdasdas")
+            return;
+        }
+
+        const pr = cartItems.value.find(p => {
+            return p.productId === product.id
+        } );
+        product.count--;
+
+        if (product.count == 0){
             try {
-                const response = await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${pr.id}`);
-                console.log(response)
+                await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${pr.id}`);
                 cartItems.value = cartItems.value.filter(p => p.productId !== product.id);
+                await get()
             }catch(err){
                 console.log(err)
             }
@@ -78,16 +138,14 @@ export const useCartStore = defineStore("cart", () => {
         }
 
         if (pr) {
-            console.log(product)
             const model = {
-                "productId": product.productId,
-                "cartId": product.cartId,
+                "productId": pr.productId,
+                "cartId": cart.value.id,
                 "count": product.count,
             }
             console.log(model)
             const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
-            console.log(data)
-            // cartItems.value = data
+            await get()
         }
     }
 
@@ -124,7 +182,9 @@ export const useCartStore = defineStore("cart", () => {
         totalSum,
         hasItem,
         increment,
+        incrementCart,
         decrement,
+        decrementCart,
         deleteCart,
         get
     }

@@ -1,16 +1,26 @@
 <template>
   <div>
-    <div class="row">
-      <div class="category-carousel">
-        <div class="swiper-wrapper">
-          <a v-for="item in categoryDataSource" :key="item.id" href="" class="nav-link category-item swiper-slide">
-            {{item.defaultImageId}}
-            <img :src="`/assets/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">
+    <div class="container-fluid">
+
+      <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Главная</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Категории</li>
+        </ol>
+      </nav>
+      <div class="row">
+        <div v-for="item in categoryDataSource" :key="item.id" class="col-6 col-md-4 col-lg-3">
+          <div  class="category-card">
+            <img class="category-image" :src="`/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">
             <h3 class="category-title">{{ item.caption }}</h3>
-          </a>
+            <a  href="" class="category-link">
+              {{item.defaultImageId}}
+            </a>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 

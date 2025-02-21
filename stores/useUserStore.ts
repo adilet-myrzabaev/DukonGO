@@ -13,7 +13,6 @@ export const useUserStore = defineStore("user", () => {
                     Authorization: `Bearer ${authStore.token}`
                 }
             });
-            console.log(data);
             profile.value = data.profile;
             return data;
         } catch (e) {
