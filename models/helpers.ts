@@ -1,0 +1,1 @@
+export const toQueryString = (object: any) => (object ? '?' + new URLSearchParams(object).toString() : '');

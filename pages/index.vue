@@ -1,0 +1,241 @@
+<template>
+  <section class="py-3 bg-image">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="banner-blocks">
+
+            <div class="banner-ad large bg-info block-1">
+              <div class="row banner-content p-5">
+                <div class="content-wrapper col-md-7">
+                  <div class="categories my-3">100% натуральный</div>
+                  <h3 class="display-4">Свежий Смузи & Летний Сок</h3>
+                  <p>Натуральный продукт, выращенный без использования химических удобрений и добавок. Сохраняет свой естественный вкус, пользу и свежесть. Идеален для здорового питания и заботы о вашем организме.</p>
+                  <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
+                </div>
+                <div class="img-wrapper col-md-5 d-none d-md-block">
+                  <img src="/assets/images/product-thumb-1.png" class="img-fluid" alt="">
+                </div>
+              </div>
+            </div>
+
+            <div class="banner-ad bg-success-subtle block-2 bg-image-2" >
+              <div class="row banner-content p-5">
+
+                <div class="content-wrapper col-md-7">
+                  <div class="categories sale mb-3 pb-3">20%</div>
+                  <h3 class="banner-title">Фрукты & Овощи</h3>
+                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                    <svg width="24" height="24">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="banner-ad bg-danger block-3 bg-image-3">
+              <div class="row banner-content p-5">
+
+                <div class="content-wrapper col-md-7">
+                  <div class="categories sale mb-3 pb-3">15%</div>
+                  <h3 class="item-title">Хлебобулочные изделия</h3>
+                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                    <svg width="24" height="24">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- / Banner Blocks -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 overflow-hidden">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="section-header d-flex flex-wrap justify-content-between mb-5">
+            <h2 class="section-title">Каталог</h2>
+
+            <div class="d-flex align-items-center">
+              <a href="#" class="btn-link text-decoration-none">Посмотреть все →</a>
+              <div class="swiper-buttons">
+                <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+                <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="category-carousel swiper">
+            <div class="swiper-wrapper">
+              <a  href="#" class="nav-link category-item swiper-slide">
+                <img src="/assets/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                <h3 class="category-title">Fruits & Veges</h3>
+              </a>
+              <a href="#" class="nav-link category-item swiper-slide">
+                <img src="/assets/images/icon-bread-baguette.png" alt="Category Thumbnail">
+                <h3 class="category-title">Breads & Sweets</h3>
+              </a>
+              <a href="#" class="nav-link category-item swiper-slide">
+                <img src="/assets/images/icon-soft-drinks-bottle.png" alt="Category Thumbnail">
+                <h3 class="category-title">Fruits & Veges</h3>
+              </a>
+              <a href="#" class="nav-link category-item swiper-slide">
+                <img src="/assets/images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
+                <h3 class="category-title">Fruits & Veges</h3>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--  Products  -->
+  <section class="py-5">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="bootstrap-tabs product-tabs">
+            <div class="tabs-header d-flex justify-content-between border-bottom my-5">
+              <h3>Товары</h3>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+
+                <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+                  <div v-for="item in commodityDataSource.items" :key="item.id" class="col mb-4">
+                    <div class="product-item">
+<!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
+                      <figure>
+                        <a href="#" title="Product Title">
+                          <img :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
+                        </a>
+                      </figure>
+                      <div class="product-body">
+                        <h3 class="product__caption">{{ item.caption }}</h3>
+                        <div>
+                          <div class="d-flex align-items-center justify-content-between">
+                            <span class="price">{{ item.price }} c</span>
+                            <span class="qty">{{item.unit}}</span>
+                          </div>
+                          <div class="d-flex align-items-end flex-column">
+                            <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
+                              <span @click="cartStore.decrement(item)" class="input-group-btn">
+                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                  </button>
+                              </span>
+                              <span class="input-number">{{item.count}}</span>
+                              <span @click="cartStore.increment(item)" class="input-group-btn">
+                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                  </button>
+                              </span>
+                            </div>
+                            <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 my-5">
+    <div class="container-fluid">
+
+      <div class="bg-warning py-5 rounded-5 bg-image-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="/assets/images/phone.png" alt="phone" class="image-float img-fluid">
+            </div>
+            <div class="col-md-8">
+              <h2 class="my-5">Совершайте покупки легко и быстро с приложением DukonGO!</h2>
+              <p>Экономьте время и заказывайте любимые товары в пару кликов. Удобный интерфейс, быстрая доставка и выгодные предложения — всё для вашего комфорта! 🛒📱</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <img src="/assets/images/app-store.jpg" alt="app-store">
+                <img src="/assets/images/google-play.jpg" alt="google-play">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+import {onMounted} from "vue";
+import { useAuthStore} from "~/stores/useAuthStore";
+import { useUserStore} from "~/stores/useUserStore";
+import { useCartStore} from "~/stores/useCartStore";
+import {CommodityDataSource} from "~/models/data-source/ListDataSource";
+const authStore = useAuthStore();
+const userStore = useUserStore();
+const cartStore = useCartStore();
+
+const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSource({
+  className: "commodity"
+}));
+
+onMounted(async() => {
+
+  await commodityDataSource.get()
+})
+</script>
+
+<style scoped>
+.bg-image{
+  background-image: url('/assets/images/background-pattern.jpg');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+.bg-image-2{
+  background-image: url('../assets/images/ad-image-1.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+.bg-image-3{
+  background-image: url('../assets/images/ad-image-2.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+.bg-image-4{
+  background-image: url('/assets/images/bg-pattern-2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+</style>
