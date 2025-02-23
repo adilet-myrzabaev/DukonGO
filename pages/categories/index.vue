@@ -24,6 +24,9 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  title: "DukonGO - Категории",
+})
 const categories = ref([
   {
     id: 3335,

@@ -39,6 +39,11 @@ import {ListDataSource} from "~/models/data-source/ListDataSource";
 
 const route = useRoute()
 const total = ref(0)
+const isLoading = useState("isLoading")
+
+useHead({
+  title: `DukonGO - Заказ №${route.params.id}`,
+})
 
 const orderItemDataSource = reactive<ListDataSource>(new ListDataSource({
   className: "orderitem",
@@ -56,13 +61,15 @@ const check = async () => {
 }
 
 onMounted(async () => {
+  isLoading.value = true
   orderItemDataSource.filter.orderId= +route.params.id;
-
   try {
     await orderItemDataSource.get()
     await check()
   }catch(e) {
     console.log(e)
+  }finally{
+    isLoading.value = false
   }
 })
 </script>

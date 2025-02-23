@@ -37,6 +37,9 @@ import Toast from "~/components/Toast.vue";
 definePageMeta({
   layout: 'empty'
 })
+useHead({
+  title: "DukonGO - Войти",
+})
 const router = useRouter()
 const authStore = useAuthStore();
 const toastComponent = ref(null);

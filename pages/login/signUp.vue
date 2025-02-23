@@ -55,6 +55,10 @@ definePageMeta({
   layout: 'empty'
 })
 
+useHead({
+  title: "DukonGO - Регистрация",
+})
+
 const authStore = useAuthStore();
 const router = useRouter()
 

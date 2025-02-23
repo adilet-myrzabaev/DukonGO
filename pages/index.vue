@@ -212,7 +212,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <img src="/assets/images/mobile-phone.png" alt="phone" class="image-float img-fluid">
+              <img src="/assets/images/phone.png" alt="phone" class="image-float img-fluid">
             </div>
             <div class="col-md-8">
               <h2 class="my-5">Совершайте покупки легко и быстро с приложением DukonGO!</h2>
@@ -231,14 +231,14 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
-import { useAuthStore} from "~/stores/useAuthStore";
-import { useUserStore} from "~/stores/useUserStore";
-import { useCartStore} from "~/stores/useCartStore";
+useHead({
+  title: "Главная страница",
+})
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const cartStore = useCartStore();
+const isLoading = useState("isLoading");
 
 const categories = ref([
   {
@@ -271,12 +271,12 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
   className: "commodity"
 }));
 
-onMounted(async() => {
+onMounted(async () => {
+  isLoading.value = true;
+  await commodityDataSource.get();
+  await cartStore.get()
+  isLoading.value = false
 
-  await Promise.all([
-    commodityDataSource.get(),
-    cartStore.get()
-  ])
 })
 </script>
 

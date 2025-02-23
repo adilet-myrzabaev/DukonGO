@@ -4,7 +4,7 @@
       <ol class="breadcrumb">
 
         <li class="breadcrumb-item"><a href="/">Главная</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Сменить пароль</li>
+        <li class="breadcrumb-item active" aria-current="page">Смена пароля</li>
       </ol>
     </nav>
     <h1>Изменить пароль</h1>
@@ -28,6 +28,9 @@
 
 <script setup lang="ts">
 import axios from "axios";
+useHead({
+  title: "DukonGO - Смена пароля",
+})
 const userStore = useUserStore()
 const confirmPassword = ref('')
 

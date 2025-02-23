@@ -78,10 +78,8 @@
 
 <script setup lang="ts">
 import {reactive} from "vue";
-import {CommodityDataSource} from "~/models/data-source/ListDataSource";
-
-const cartStore = useCartStore();
 const route = useRoute();
+const isLoading = useState("isLoading");
 const translationMap = {
   "dlya-doma-i-sada": "для дома и сада",
   "chipsyi-i-sneki": "чипсы и снеки",
@@ -100,6 +98,13 @@ const translationMap = {
   "kolbasnyie-izdeliya": "колбасные изделия",
   "hleb-i-vyipechka": "хлеб и выпечка"
 };
+useHead({
+  title: `DukonGO - ${translateCategory(route.params.category)}`,
+})
+import {CommodityDataSource} from "~/models/data-source/ListDataSource";
+
+const cartStore = useCartStore();
+
 const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSource({
   className: "commodity",
   filter: {folderName: null}
@@ -111,6 +116,7 @@ function translateCategory(category) {
 }
 
 onMounted(async () => {
+  isLoading.value = true;
   console.log(route.params.category, commodityDataSource);
   try {
     commodityDataSource.filter.folderName=route.params.category;
@@ -122,6 +128,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Ошибка при загрузке данных:', error);
   }
+  isLoading.value = false;
 })
 
 </script>

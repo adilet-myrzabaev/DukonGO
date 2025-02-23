@@ -26,9 +26,12 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
 import {ListDataSource} from "~/models/data-source/ListDataSource";
+useHead({
+  title: "DukonGO - Мои заказы",
+})
 const userStore = useUserStore()
 const cartStore = useCartStore()
-
+const isLoading = useState("isLoading")
 
 const orderDataSource = reactive<ListDataSource>(new ListDataSource({
   className: "order",
@@ -45,11 +48,14 @@ const formattedDate = (data: any) => {
   return `${day}.${month}.${year}`;
 };
 onMounted(async () => {
+  isLoading.value = true;
   orderDataSource.filter.userProfileId=userStore.profile.id
   try {
     await orderDataSource.get()
   } catch (e){
     console.log(e)
+  }finally{
+    isLoading.value = false
   }
 
 })

@@ -50,6 +50,9 @@
 
 <script setup lang="ts">
 import axios from "axios";
+useHead({
+  title: "DukonGO - Профиль пользователя",
+})
 const userStore = reactive(useUserStore())
 
 const formated = (phoneNumber) => {

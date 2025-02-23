@@ -7,5 +7,8 @@ export default defineNuxtConfig({
       '~/plugins/vue-the-mask.ts',
       '~/plugins/autoLogin.ts',
   ],
-  css: ["bootstrap/dist/css/bootstrap.min.css"]
+  css: ["bootstrap/dist/css/bootstrap.min.css"],
+    router: {
+        middleware: ['authGlobal'],
+    },
 })

@@ -168,13 +168,14 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
+useHead({
+  title: "DukonGO - Корзина"
+})
 import axios from "axios";
-import {ca} from "cronstrue/dist/i18n/locales/ca";
-import router from "#app/plugins/router";
 const cartStore = useCartStore();
 const userStore = useUserStore();
 const checkoutModal = ref()
+const isLoading = useState("isLoading");
 const globalError = ref("");
 const errors = ref({
   address: ""
@@ -203,6 +204,7 @@ const addOrder = async (product: any) => {
   if (checkoutModel.address === "" && checkoutModel.address === null) return;
   checkoutModel.userProfileId = userStore.profile.id;
   if (product){
+    isLoading.value = true
     try {
       await axios.post(`https://manage.dukongo.kg/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
       await cartStore.get()
@@ -211,16 +213,19 @@ const addOrder = async (product: any) => {
       router.push("/");
     }catch(error){
       console.log(error)
+    } finally {
+      isLoading.value = false
     }
   }
 }
 onMounted(async () => {
-  // checkoutModal.value.addEventListener("show.bs.") = true;
+  isLoading.value = true
   await Promise.all([
     userStore.get(),
     cartStore.get(),
     cartStore.getDelivery()
   ])
+  isLoading.value = false
 
 })
 </script>
