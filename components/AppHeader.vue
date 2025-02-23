@@ -132,9 +132,9 @@
 
           <div class="text-center text-sm-start">
             <div class="main-logo">
-              <NuxtLink to="/">
+              <a href="/">
                 <h4>DukonGO</h4>
-              </NuxtLink>
+              </a>
             </div>
           </div>
 

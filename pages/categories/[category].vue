@@ -38,20 +38,25 @@
                               <span class="qty">{{item.unit}}</span>
                             </div>
                             <div class="d-flex align-items-end flex-column">
-                              <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
-                              <span @click="cartStore.decrement(item)" class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                                <span class="input-number">{{item.count}}</span>
-                                <span @click="cartStore.increment(item)" class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                              </div>
-                              <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                              <template v-if="item.productCount > 0">
+                                <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
+                                <span @click="cartStore.decrement(item)" class="input-group-btn">
+                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                                      <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                    </button>
+                                </span>
+                                  <span class="input-number">{{item.count}}</span>
+                                  <span @click="cartStore.increment(item)" class="input-group-btn">
+                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                        <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                    </button>
+                                </span>
+                                </div>
+                                <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                              </template>
+                              <template v-else>
+                                <button href="#" class=" btn btn-danger w-100">нет в наличии</button>
+                              </template>
                             </div>
                           </div>
                         </div>

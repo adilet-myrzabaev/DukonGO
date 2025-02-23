@@ -12,7 +12,7 @@
                   <div class="categories my-3">100% натуральный</div>
                   <h3 class="display-4">Свежий Смузи & Летний Сок</h3>
                   <p>Натуральный продукт, выращенный без использования химических удобрений и добавок. Сохраняет свой естественный вкус, пользу и свежесть. Идеален для здорового питания и заботы о вашем организме.</p>
-                  <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
+                  <a href="/categories/napitki" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
                 </div>
                 <div class="img-wrapper col-md-5 d-none d-md-block">
                   <img src="/assets/images/product-thumb-1.png" class="img-fluid" alt="">
@@ -24,9 +24,8 @@
               <div class="row banner-content p-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">20%</div>
                   <h3 class="banner-title">Фрукты & Овощи</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                  <a href="/categories/ovoschifruktyigribyi" class="d-flex align-items-center nav-link">Купить
                     <svg width="24" height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -40,9 +39,8 @@
               <div class="row banner-content p-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">15%</div>
                   <h3 class="item-title">Хлебобулочные изделия</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                  <a href="/categories/hleb-i-vyipechka" class="d-flex align-items-center nav-link">Купить
                     <svg width="24" height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -112,20 +110,25 @@
                             <span class="qty">{{item.unit}}</span>
                           </div>
                           <div class="d-flex align-items-end flex-column">
-                            <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
+                            <template v-if="item.productCount > 0">
+                              <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
                               <span @click="cartStore.decrement(item)" class="input-group-btn">
                                   <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
                                     <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
                                   </button>
                               </span>
-                              <span class="input-number">{{item.count}}</span>
-                              <span @click="cartStore.increment(item)" class="input-group-btn">
+                                <span class="input-number">{{item.count}}</span>
+                                <span @click="cartStore.increment(item)" class="input-group-btn">
                                   <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
                                       <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
                                   </button>
                               </span>
-                            </div>
-                            <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                              </div>
+                              <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                            </template>
+                            <template v-else>
+                              <button href="#" class=" btn btn-danger w-100">нет в наличии</button>
+                            </template>
                           </div>
                         </div>
                       </div>
@@ -156,7 +159,7 @@
                   <div class="categories my-3">100% натуральный</div>
                   <h3 class="display-4">Свежий Смузи & Летний Сок</h3>
                   <p>Натуральный продукт, выращенный без использования химических удобрений и добавок. Сохраняет свой естественный вкус, пользу и свежесть. Идеален для здорового питания и заботы о вашем организме.</p>
-                  <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
+                  <a href="/categories/napitki" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
                 </div>
                 <div class="img-wrapper col-md-5 d-none d-md-block">
                   <img src="/assets/images/product-thumb-1.png" class="img-fluid" alt="">
@@ -168,9 +171,8 @@
               <div class="row banner-content p-3 p-md-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">20%</div>
                   <h3 class="banner-title">Фрукты & Овощи</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                  <a href="/categories/ovoschifruktyigribyi" class="d-flex align-items-center nav-link">Купить
                     <svg width="24" height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -184,9 +186,8 @@
               <div class="row banner-content p-3 p-md-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">15%</div>
                   <h3 class="item-title">Хлебобулочные изделия</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                  <a href="/categories/hleb-i-vyipechka" class="d-flex align-items-center nav-link">Купить
                     <svg width="24" height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -211,7 +212,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <img src="/assets/images/phone.png" alt="phone" class="image-float img-fluid">
+              <img src="/assets/images/mobile-phone.png" alt="phone" class="image-float img-fluid">
             </div>
             <div class="col-md-8">
               <h2 class="my-5">Совершайте покупки легко и быстро с приложением DukonGO!</h2>
