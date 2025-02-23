@@ -2,21 +2,20 @@
   <div>
     <div class="container-fluid">
 
-<!--      <nav style="&#45;&#45;bs-breadcrumb-divider: '';" aria-label="breadcrumb">-->
-<!--        <ol class="breadcrumb">-->
-<!--          <li class="breadcrumb-item"><a href="/">Главная</a></li>-->
-<!--          <li class="breadcrumb-item active" aria-current="page">Категории</li>-->
-<!--        </ol>-->
-<!--      </nav>-->
+      <nav class="py-md-5" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Главная</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Категории</li>
+        </ol>
+      </nav>
       <div class="row">
-        <div v-for="item in categoryDataSource" :key="item.id" class="col-6 col-md-4 col-lg-3">
-          <div  class="category-card">
-            <img class="category-image" :src="`/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">
-            <h3 class="category-title">{{ item.caption }}</h3>
-            <a  href="" class="category-link">
-              {{item.defaultImageId}}
-            </a>
-          </div>
+        <div v-for="item in categories" :key="item.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+          <a :href="`/categories/${item.name}`">
+            <div class="category-card" :style="{backgroundImage: `url('/images/categories/${item.defaultImageId}.png')`} ">
+<!--              <img class="category-image" :src="`/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">-->
+              <h3 class="category-title">{{ item.caption }}</h3>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -25,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-const categoryDataSource = ref([
+const categories = ref([
   {
     id: 3335,
     name: "dlya-doma-i-sada",

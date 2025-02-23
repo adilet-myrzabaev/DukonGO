@@ -1,17 +1,16 @@
 import axios from 'axios';
+
 export const useCartStore = defineStore("cart", () => {
     const cartItems = ref([])
     const cart = ref()
     const total = ref(0)
     const userStore = useUserStore();
+    const delivery = ref(0)
 
     const totalSum = computed(() => {
-        const total = cartItems.value.reduce((t, item) => {
-            return t + item.price * item.count; // Суммируем общую стоимость
-        }, 0); // Начальное значение аккумулятора — 0
-
-        console.log(total); // Логируем общую сумму
-        return total;
+        return cartItems.value.reduce((t, item) => {
+            return t + item.price * item.count;
+        }, 0);
     });
 
     const get = async () => {
@@ -19,6 +18,16 @@ export const useCartStore = defineStore("cart", () => {
         cart.value = data
         cartItems.value = data.items
         total.value = data.items.length
+    }
+
+    const getDelivery = async () => {
+        try {
+            const {data} = await axios.get("https://manage.dukongo.kg/api/v1/public/company/delivery")
+            console.log(data)
+            delivery.value = data.value
+        }catch(e) {
+            console.log(e)
+        }
     }
 
     const hasItem = (product: any) => {
@@ -180,12 +189,14 @@ export const useCartStore = defineStore("cart", () => {
         cartItems,
         total,
         totalSum,
+        delivery,
         hasItem,
         increment,
         incrementCart,
         decrement,
         decrementCart,
         deleteCart,
-        get
+        get,
+        getDelivery
     }
 })

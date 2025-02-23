@@ -1,12 +1,12 @@
 <template>
-  <section class="py-3 bg-image">
+  <section class="py-3 bg-image d-none d-md-block">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
 
           <div class="banner-blocks">
 
-            <div class="banner-ad large bg-info block-1">
+            <div class="banner-ad large bg-info block-1 d-none d-md-block">
               <div class="row banner-content p-5">
                 <div class="content-wrapper col-md-7">
                   <div class="categories my-3">100% натуральный</div>
@@ -60,57 +60,28 @@
     </div>
   </section>
 
-  <section class="py-5 overflow-hidden">
+  <section class="py-md-5 overflow-hidden">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-
-          <div class="section-header d-flex flex-wrap justify-content-between mb-5">
-            <h2 class="section-title">Каталог</h2>
-
-            <div class="d-flex align-items-center">
-              <a href="#" class="btn-link text-decoration-none">Посмотреть все →</a>
-              <div class="swiper-buttons">
-                <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
-                <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
-              </div>
-            </div>
-          </div>
-
+        <div class="section-header d-flex flex-wrap justify-content-between mb-2 mb-md-5">
+          <h2 class="section-title">Популярные категории</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
-
-          <div class="category-carousel swiper">
-            <div class="swiper-wrapper">
-              <a  href="#" class="nav-link category-item swiper-slide">
-                <img src="/assets/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="/assets/images/icon-bread-baguette.png" alt="Category Thumbnail">
-                <h3 class="category-title">Breads & Sweets</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="/assets/images/icon-soft-drinks-bottle.png" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-              <a href="#" class="nav-link category-item swiper-slide">
-                <img src="/assets/images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
-                <h3 class="category-title">Fruits & Veges</h3>
-              </a>
-
+        <div v-for="item in categories" :key="item.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+          <a :href="`/categories/${item.name}`">
+            <div class="category-card" :style="{backgroundImage: `url('/images/categories/${item.defaultImageId}.png')`} ">
+              <!--              <img class="category-image" :src="`/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">-->
+              <h3 class="category-title">{{ item.caption }}</h3>
             </div>
-          </div>
-
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!--  Products  -->
-  <section class="py-5">
+  <section class="py-md-5">
     <div class="container-fluid">
 
       <div class="row">
@@ -172,6 +143,67 @@
     </div>
   </section>
 
+  <section class="py-3 bg-image d-block d-md-none">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="banner-blocks">
+
+            <div class="banner-ad large bg-info block-1">
+              <div class="row banner-content p-3 p-md-5">
+                <div class="content-wrapper col-md-7">
+                  <div class="categories my-3">100% натуральный</div>
+                  <h3 class="display-4">Свежий Смузи & Летний Сок</h3>
+                  <p>Натуральный продукт, выращенный без использования химических удобрений и добавок. Сохраняет свой естественный вкус, пользу и свежесть. Идеален для здорового питания и заботы о вашем организме.</p>
+                  <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Купить сейчас</a>
+                </div>
+                <div class="img-wrapper col-md-5 d-none d-md-block">
+                  <img src="/assets/images/product-thumb-1.png" class="img-fluid" alt="">
+                </div>
+              </div>
+            </div>
+
+            <div class="banner-ad bg-success-subtle block-2 bg-image-2" >
+              <div class="row banner-content p-3 p-md-5">
+
+                <div class="content-wrapper col-md-7">
+                  <div class="categories sale mb-3 pb-3">20%</div>
+                  <h3 class="banner-title">Фрукты & Овощи</h3>
+                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                    <svg width="24" height="24">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="banner-ad bg-danger block-3 bg-image-3">
+              <div class="row banner-content p-3 p-md-5">
+
+                <div class="content-wrapper col-md-7">
+                  <div class="categories sale mb-3 pb-3">15%</div>
+                  <h3 class="item-title">Хлебобулочные изделия</h3>
+                  <a href="#" class="d-flex align-items-center nav-link">Купить
+                    <svg width="24" height="24">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- / Banner Blocks -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="py-5 my-5">
     <div class="container-fluid">
 
@@ -206,6 +238,33 @@ import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const cartStore = useCartStore();
+
+const categories = ref([
+  {
+    id: 3335,
+    name: "dlya-doma-i-sada",
+    defaultImageId: 6983,
+    caption: "Для дома и сада"
+  },
+  {
+    id: 3456,
+    name: "chipsyi-i-sneki",
+    defaultImageId: 3456,
+    caption: "Чипсы и снеки"
+  },
+  {
+    id: 3516,
+    name: "chaj-i-kofe",
+    defaultImageId: 3516,
+    caption: "Чай и кофе"
+  },
+  {
+    id: 3829,
+    name: "alkogolnyie-napitki-tabak",
+    defaultImageId: 3829,
+    caption: "Алкогольные напитки, табак"
+  },
+])
 
 const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSource({
   className: "commodity"

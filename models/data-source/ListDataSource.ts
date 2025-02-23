@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {computed, ComputedRef, ref, Ref} from 'vue';
 import {toQueryString} from "~/models/helpers";
 export class ListDataSource  {
     items:any[] = [];
@@ -38,7 +37,7 @@ export class ListDataSource  {
         ));
     }
 
-    get queryParams(): string {
+     get queryParams(): string {
         return toQueryString({
             pi: this.pageIndex,
             ps: this.pageSize,
@@ -51,7 +50,7 @@ export class ListDataSource  {
 
     async get() {
         try {
-            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}`, this.queryParams);
+            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/` + this.queryParams);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;
@@ -62,7 +61,20 @@ export class ListDataSource  {
 }
 
 export class CommodityDataSource extends ListDataSource {
+    idName: string;
     constructor(init: Partial<CommodityDataSource>) {
         super(init);
+        this.idName = init.idName;
+    }
+
+    async getProduct() {
+        try {
+            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/name/${this.idName}`, this.queryParams);
+            this.items = data.items;
+            this.total = data.total;
+            this.loaded = true;
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

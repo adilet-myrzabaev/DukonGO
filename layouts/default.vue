@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <slot></slot>
+  <slot />
   <AppFooter/>
 </template>
 <script setup lang="ts">

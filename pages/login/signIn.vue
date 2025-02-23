@@ -51,7 +51,6 @@ const login = async () => {
 
   signInModel.email = signInModel.email.replace(/\D/g, '');
   const response = await authStore.login(signInModel);
-  toastComponent.value?.showToast("Добро пожаловать");
 
 
 

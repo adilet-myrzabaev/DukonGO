@@ -32,11 +32,12 @@ export const useAuthStore = defineStore("auth", () => {
         }
     };
 
-    const logout = () => {
+    const logout = async (event: any) => {
+        console.log(event)
         token.value = null;
         Cookies.remove(tokenName);
         localStorage.clear();
-        router.push("/login/auth")
+        await router.push("/login/signIn")
     };
 
     const tryLogin = () => {
@@ -50,6 +51,7 @@ export const useAuthStore = defineStore("auth", () => {
         token.value = _jwtToken;
         axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
         Cookies.set(tokenName, token.value, { expires: 7 });
+        console.log(token.value);
         return true;
     };
 

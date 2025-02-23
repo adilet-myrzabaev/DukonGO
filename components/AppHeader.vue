@@ -183,7 +183,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li v-for="item in dropdownItems" :key="item.id">
-                    <a class="dropdown-item" :href="item.url">{{ item.label }}</a>
+                    <a class="dropdown-item" @click="item.action" :href="item.url">{{ item.label }}</a>
                   </li>
                 </ul>
               </li>
@@ -221,8 +221,8 @@ const dropdownItems = ref([
 const authorizedItems = ref([
   {
     id: 1,
-    label: "Личный кабинет",
-    url: "/user/",
+    label: "Профиль пользователя",
+    url: "/User/Account/Profile",
     cssClass: "dropdown-menu__list"
   },
   {
@@ -231,25 +231,20 @@ const authorizedItems = ref([
     url: "/user/orders/",
     cssClass: "dropdown-menu__list"
   },
+
   {
     id: 3,
-    label: "Профиль пользователя",
-    url: "/User/Account/Profile",
-    cssClass: "dropdown-menu__list"
-  },
-  {
-    id: 4,
     label: "Смена пароля",
     url: "/User/Account/ResetPassword/",
     cssClass: "dropdown-menu__list"
   },
   {
-    id: 5,
+    id: 4,
     label: "Выйти",
     url: "#",
     cssClass: "dropdown-menu__list",
     action: () => {
-      alert("Вы вышли из аккаунта")
+      authStore.logout();
     }
   }
 ]);
@@ -265,5 +260,10 @@ onMounted(() => {
 <style scoped>
 .app-header{
   padding-bottom: 80px;
+}
+@media screen and (max-width: 576px) {
+  .app-header{
+    padding-bottom: 60px;
+  }
 }
 </style>

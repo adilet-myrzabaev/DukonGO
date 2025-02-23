@@ -93,16 +93,6 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer-menu">
-              <h5 class="widget-title">Подпишитесь на нас</h5>
-              <p>Подпишитесь на нашу рассылку, чтобы получать обновления о наших выгодных предложениях.</p>
-              <form class="d-flex mt-3 gap-0" role="presentation">
-                <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address" aria-label="Email Address">
-                <button class="btn btn-dark rounded-end rounded-0" type="submit">Отправить</button>
-              </form>
-            </div>
-          </div>
 
         </div>
       </div>

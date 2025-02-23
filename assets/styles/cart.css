@@ -58,6 +58,26 @@
 .btn-close{
     cursor: pointer;
 }
+.cart-show .cart-body{
+    margin-right: 0;
+}
+.cart-show .cart__item{
+    width: 100%;
+    margin-right: 0 !important;
+}
+.cart-show .cart__caption{
+    height: fit-content;
+
+    margin-bottom: 10px;
+}
+.cart-show .cart__price{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
 @media screen and (max-width: 992px) {
     .cart{
         padding: 20px 0;
