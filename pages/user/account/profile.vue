@@ -53,6 +53,7 @@ import axios from "axios";
 useHead({
   title: "DukonGO - Профиль пользователя",
 })
+definePageMeta({ middleware: ["auth"] });
 const userStore = reactive(useUserStore())
 
 const formated = (phoneNumber) => {

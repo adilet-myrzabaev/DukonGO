@@ -33,11 +33,9 @@ export const useAuthStore = defineStore("auth", () => {
         }
     };
 
-    const logout = async (event: any) => {
-        console.log(event)
+    const logout = async () => {
         token.value = null;
         Cookies.remove(tokenName);
-        localStorage.clear();
         await router.push("/login/signIn")
     };
 

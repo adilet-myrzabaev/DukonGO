@@ -273,6 +273,7 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 
 onMounted(async () => {
   isLoading.value = true;
+  await userStore.get()
   await commodityDataSource.get();
   await cartStore.get()
   isLoading.value = false

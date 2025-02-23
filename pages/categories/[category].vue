@@ -101,6 +101,7 @@ const translationMap = {
 useHead({
   title: `DukonGO - ${translateCategory(route.params.category)}`,
 })
+definePageMeta({ middleware: ["auth"] });
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 
 const cartStore = useCartStore();

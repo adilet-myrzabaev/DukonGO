@@ -29,6 +29,7 @@ import {ListDataSource} from "~/models/data-source/ListDataSource";
 useHead({
   title: "DukonGO - Мои заказы",
 })
+definePageMeta({ middleware: ["auth"] });
 const userStore = useUserStore()
 const cartStore = useCartStore()
 const isLoading = useState("isLoading")

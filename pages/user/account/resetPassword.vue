@@ -31,6 +31,7 @@ import axios from "axios";
 useHead({
   title: "DukonGO - Смена пароля",
 })
+definePageMeta({ middleware: ["auth"] });
 const userStore = useUserStore()
 const confirmPassword = ref('')
 
