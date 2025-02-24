@@ -33,26 +33,32 @@ export const useAuthStore = defineStore("auth", () => {
         }
     };
 
-    const logout = async () => {
-        token.value = null;
-        Cookies.remove(tokenName);
-        await router.push("/login/signIn")
-    };
-
-    const tryLogin = () => {
-        const _jwtToken: string = Cookies.get(tokenName) as string;
-        if (!isJwtValid(_jwtToken)) {
+    const logout = () => {
+        try {
             token.value = null;
-            Cookies.remove(tokenName);
+            userStore.profile = null;
+            const userIdCookie = useCookie(tokenName);
+            userIdCookie.value = null;
+        } catch (error) {
+            throw error;
+        }
+    };
+    
+    const tryLogin = (): boolean => {
+        const _jwtToken = useCookie(tokenName);
+
+        if (!isJwtValid(_jwtToken.value)) {
+            token.value = null;
             return false;
         }
 
-        token.value = _jwtToken;
+        token.value = _jwtToken.value as string;
         axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-        Cookies.set(tokenName, token.value, { expires: 7 });
-        console.log(token.value);
+        const _token = useCookie(tokenName, { maxAge: 7 });
+        _token.value = _jwtToken.value as string;
         return true;
     };
+    
 
     const register = async (registerModel: any) => {
         console.log(registerModel.email+ registerModel.password);
