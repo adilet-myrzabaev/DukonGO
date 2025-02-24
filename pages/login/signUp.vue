@@ -17,7 +17,7 @@
       <div class="mb-1">
         <label for="exampleInputEmail1" class="form-label">ФИО</label>
         <input
-            v-model="registerModel.userProfile.fullname"
+            v-model="registerModel.userProfile.fullName"
             type="text"
             class="form-control"
             placeholder="Например: Иванов Иван Иванович"

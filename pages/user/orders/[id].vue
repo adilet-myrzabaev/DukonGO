@@ -44,7 +44,7 @@ const isLoading = useState("isLoading")
 useHead({
   title: `DukonGO - Заказ №${route.params.id}`,
 })
-definePageMeta({ middleware: ["auth"] });
+
 const orderItemDataSource = reactive<ListDataSource>(new ListDataSource({
   className: "orderitem",
   pageIndex: 1,

@@ -171,8 +171,8 @@
 useHead({
   title: "DukonGO - Корзина"
 })
-definePageMeta({ middleware: ["auth"] });
 import axios from "axios";
+const router = useRouter();
 const cartStore = useCartStore();
 const userStore = useUserStore();
 const checkoutModal = ref()
