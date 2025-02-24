@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <!-- asd -->
     <div class="wrapper">
         <h2 class="text-center mb-5">Войти</h2>
         <div class="mb-3">
@@ -23,7 +24,7 @@
         </div>
         <button @click="login()" class="btn btn-primary w-100" type="submit">Войти</button>
         <div class="registerOrLogin">
-          <p> <a href="/login/signUp">Зарегистрироваться</a></p>
+          <p> <nuxt-link to="/login/signup">Зарегистрироваться</nuxt-link></p>
         </div>
     </div>
   </div>
@@ -32,34 +33,24 @@
 
 <script setup lang="ts">
 import {useAuthStore} from "~/stores/useAuthStore";
-import {useRouter} from "vue-router";
-const { $toast } = useNuxtApp();
+import Toast from "~/components/Toast.vue";
 definePageMeta({
-  layout: 'empty',
+  layout: 'empty'
 })
 useHead({
   title: "DukonGO - Войти",
 })
-
-const router = useRouter()
 const authStore = useAuthStore();
-const toastComponent = ref(null);
+const toastComponent = ref();
 
 const signInModel = reactive({
-  email: '',
+  email: '+996',
   password: ''
 })
 
 const login = async () => {
-
-
   signInModel.email = signInModel.email.replace(/\D/g, '');
-  const response = await authStore.login(signInModel);
-  // $toast.success('Success Message');
-
-
-
-  console.log(response);
+  await authStore.login(signInModel);
 }
 
 </script>

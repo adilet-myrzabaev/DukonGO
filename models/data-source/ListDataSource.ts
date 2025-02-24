@@ -50,7 +50,7 @@ export class ListDataSource  {
 
     async get() {
         try {
-            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/` + this.queryParams);
+            const { data } = await axios.get(`/api/v1/public/${this.className}/` + this.queryParams);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;
@@ -61,15 +61,16 @@ export class ListDataSource  {
 }
 
 export class CommodityDataSource extends ListDataSource {
-    idName: string;
+    idName: string = "";
+
     constructor(init: Partial<CommodityDataSource>) {
         super(init);
-        this.idName = init.idName;
+        this.idName = init.idName ?? "";
     }
 
     async getProduct() {
         try {
-            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/name/${this.idName}`, this.queryParams);
+            const { data } = await axios.get(`/api/v1/public/${this.className}/name/${this.idName}`);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;

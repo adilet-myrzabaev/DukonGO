@@ -1,10 +1,10 @@
-import {computed, ref, Ref} from "vue";
+import { ref} from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 export const useUserStore = defineStore("user", () => {
     const authStore = useAuthStore();
-    const profile: Ref = ref(null);
-    const baseUrl = "https://manage.dukongo.kg/api/v1";
+    const profile:any = ref(null);
+    const baseUrl = "/api/v1";
     const get = async () => {
         try {
             if(profile.value != null) return profile.value;

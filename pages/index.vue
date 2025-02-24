@@ -99,7 +99,7 @@
 <!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
                       <figure>
                         <a href="#" :title="item.caption">
-                          <img :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
+                          <img :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
                         </a>
                       </figure>
                       <div class="product-body">
@@ -218,8 +218,10 @@
               <h2 class="my-5">Совершайте покупки легко и быстро с приложением DukonGO!</h2>
               <p>Экономьте время и заказывайте любимые товары в пару кликов. Удобный интерфейс, быстрая доставка и выгодные предложения — всё для вашего комфорта! 🛒📱</p>
               <div class="d-flex gap-2 flex-wrap">
-                <img src="/assets/images/app-store.jpg" alt="app-store">
-                <img src="/assets/images/google-play.jpg" alt="google-play">
+                <a href="/dukongo.apk" download>
+                  <img src="/assets/images/google-play.jpg" alt="google-play">
+
+                </a>
               </div>
             </div>
           </div>
@@ -247,10 +249,8 @@ definePageMeta({
 //   },
 // });
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
-const authStore = useAuthStore();
 const userStore = useUserStore();
 const cartStore = useCartStore();
-const isLoading = useState("isLoading");
 
 const categories = ref([
   {
@@ -284,12 +284,9 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 }));
 
 onMounted(async () => {
-  isLoading.value = true;
   await userStore.get()
   await commodityDataSource.get();
   await cartStore.get()
-  isLoading.value = false
-
 })
 </script>
 

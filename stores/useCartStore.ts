@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 export const useCartStore = defineStore("cart", () => {
-    const cartItems = ref([])
-    const cart = ref()
-    const total = ref(0)
+    const cartItems = ref<any[]>([])
+    const cart:any = ref()
+    const total:any = ref(0)
     const userStore = useUserStore();
     const delivery = ref(0)
 
     const totalSum = computed(() => {
-        return cartItems.value.reduce((t, item) => {
+        return cartItems.value.reduce((t, item:any) => {
             return t + item.price * item.count;
         }, 0);
     });
 
     const get = async () => {
-        const {data} = await axios.get(`https://manage.dukongo.kg/api/v1/public/cart/user-profiles/${userStore.profile.id}`)
+        const {data} = await axios.get(`/api/v1/public/cart/user-profiles/${userStore.profile.id}`)
         cart.value = data
         cartItems.value = data.items
         total.value = data.items.length
@@ -22,7 +22,7 @@ export const useCartStore = defineStore("cart", () => {
 
     const getDelivery = async () => {
         try {
-            const {data} = await axios.get("https://manage.dukongo.kg/api/v1/public/company/delivery")
+            const {data} = await axios.get("/api/v1/public/company/delivery")
             console.log(data)
             delivery.value = data.value
         }catch(e) {
@@ -31,7 +31,7 @@ export const useCartStore = defineStore("cart", () => {
     }
 
     const hasItem = (product: any) => {
-        return cartItems.value.some(cartItem => cartItem.productId === product.id);
+        return cartItems.value.some((cartItem:any) => cartItem.productId === product.id);
     }
 
     const incrementCart = async (product: any) => {
@@ -50,7 +50,7 @@ export const useCartStore = defineStore("cart", () => {
                 "count": product.count,
             }
 
-            const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            const {data} = await axios.post(`/api/v1/public/cartitem/`, model);
             console.log(data)
             await get()
 
@@ -74,7 +74,7 @@ export const useCartStore = defineStore("cart", () => {
 
         if (product.count == 0){
             try {
-                await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${pr.id}`);
+                await axios.delete(`/api/v1/public/cartitem/${pr.id}`);
                 cartItems.value = cartItems.value.filter(p => p.productId !== product.id);
                 await get()
             }catch(err){
@@ -89,7 +89,7 @@ export const useCartStore = defineStore("cart", () => {
                 "cartId": product.cartId,
                 "count": product.count,
             }
-            await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            await axios.post(`/api/v1/public/cartitem/`, model);
         }
     }
 
@@ -111,7 +111,7 @@ export const useCartStore = defineStore("cart", () => {
                 "count": product.count,
             }
 
-            const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            const {data} = await axios.post(`/api/v1/public/cartitem/`, model);
             await get()
 
             if (pr) {
@@ -137,7 +137,7 @@ export const useCartStore = defineStore("cart", () => {
 
         if (product.count == 0){
             try {
-                await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${pr.id}`);
+                await axios.delete(`/api/v1/public/cartitem/${pr.id}`);
                 cartItems.value = cartItems.value.filter(p => p.productId !== product.id);
                 await get()
             }catch(err){
@@ -153,7 +153,7 @@ export const useCartStore = defineStore("cart", () => {
                 "count": product.count,
             }
             console.log(model)
-            const {data} = await axios.post(`https://manage.dukongo.kg/api/v1/public/cartitem/`, model);
+            const {data} = await axios.post(`/api/v1/public/cartitem/`, model);
             await get()
         }
     }
@@ -164,7 +164,7 @@ export const useCartStore = defineStore("cart", () => {
         console.log(product)
         if (product) {
             try {
-                await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${productId}`);
+                await axios.delete(`/api/v1/public/cartitem/${productId}`);
                 cartItems.value = cartItems.value.filter(p =>{
                     console.log(p)
                     return p.id !== productId;
@@ -179,7 +179,7 @@ export const useCartStore = defineStore("cart", () => {
 
         console.log(productId)
         if (product) {
-            await axios.delete(`https://manage.dukongo.kg/api/v1/public/cartitem/${productId}`);
+            await axios.delete(`/api/v1/public/cartitem/${productId}`);
             cartItems.value = cartItems.value.filter(p => p.id === productId);
         }
     }

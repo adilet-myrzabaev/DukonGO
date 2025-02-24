@@ -10,7 +10,7 @@
     </nav>
     <h1>Заказ № {{route.params.id}}</h1>
     <div v-for="item in orderItemDataSource.items" class="cart cart-show">
-      <img class="cart__image" :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.product.defaultImageId}.jpg`" alt="">
+      <img class="cart__image" :src="`/api/v1/componentimage/${item.product.defaultImageId}.jpg`" alt="">
       <div class="cart-body">
         <div class="cart__item">
           <h2 class="cart__caption">{{ item.product.caption }}</h2>
@@ -44,7 +44,7 @@ const isLoading = useState("isLoading")
 useHead({
   title: `DukonGO - Заказ №${route.params.id}`,
 })
-definePageMeta({ middleware: ["auth"] });
+
 const orderItemDataSource = reactive<ListDataSource>(new ListDataSource({
   className: "orderitem",
   pageIndex: 1,

@@ -53,7 +53,7 @@ import axios from "axios";
 useHead({
   title: "DukonGO - Профиль пользователя",
 })
-definePageMeta({ middleware: ["auth"] });
+
 const userStore = reactive(useUserStore())
 
 const formated = (phoneNumber) => {
@@ -73,7 +73,7 @@ const submit = async () => {
   })
   try {
     console.log(userStore.profile.phoneNumber)
-    const {data} = await axios.put("https://manage.dukongo.kg/api/v1/Account/", model)
+    const {data} = await axios.put("/api/v1/Account/", model)
     console.log(data)
     await userStore.get()
   }catch (e) {

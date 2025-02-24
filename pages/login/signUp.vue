@@ -17,7 +17,7 @@
       <div class="mb-1">
         <label for="exampleInputEmail1" class="form-label">ФИО</label>
         <input
-            v-model="registerModel.userProfile.fullname"
+            v-model="registerModel.userProfile.fullName"
             type="text"
             class="form-control"
             placeholder="Например: Иванов Иван Иванович"
@@ -63,7 +63,7 @@ const authStore = useAuthStore();
 const router = useRouter()
 
 const registerModel = reactive({
-  email: '',
+  email: '+996',
   password: '',
   userProfile: {
     fullName: '',
@@ -76,7 +76,6 @@ const register = async () => {
   registerModel.email = registerModel.email.replace(/\D/g, '');
   try{
     await authStore.register(registerModel);
-    await router.push("/");
   } catch (e) {
     console.error(e);
   }

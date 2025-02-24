@@ -14,7 +14,7 @@
             </div>
           </div>
           <div v-for="item in cartStore.cartItems" class="cart">
-            <img class="cart__image" :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" alt="">
+            <img class="cart__image" :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" alt="">
             <div class="cart-body">
               <div class="cart__item">
                 <h2 class="cart__caption">{{ item.caption }}</h2>
@@ -102,7 +102,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-            <button @click="addOrder" type="button" class="btn btn-primary">Подтвердить</button>
+            <button @click="addOrder"  data-bs-dismiss="modal" type="button" class="btn btn-primary">Подтвердить</button>
           </div>
         </div>
       </div>
@@ -171,14 +171,10 @@
 useHead({
   title: "DukonGO - Корзина"
 })
-definePageMeta({
-  middleware: "auth",
-  auth : 'guest'
-})
 import axios from "axios";
+const router = useRouter();
 const cartStore = useCartStore();
 const userStore = useUserStore();
-const checkoutModal = ref()
 const isLoading = useState("isLoading");
 const globalError = ref("");
 const errors = ref({
@@ -206,29 +202,30 @@ const validateForm = () => {
 
 const addOrder = async (product: any) => {
   if (checkoutModel.address === "" && checkoutModel.address === null) return;
-  checkoutModel.userProfileId = userStore.profile.id;
+  checkoutModel.userProfileId = userStore.profile!.id;
   if (product){
-    isLoading.value = true
     try {
-      await axios.post(`https://manage.dukongo.kg/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
+      await axios.post(`/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
       await cartStore.get()
-      checkoutModel.address = "";
+      checkoutModel.userProfileId = userStore.profile!.id;
+      checkoutModel.address = userStore.profile!.address;
       checkoutModel.comment = ""
-      router.push("/");
     }catch(error){
       console.log(error)
     } finally {
-      isLoading.value = false
+      router.push("/");
+
     }
   }
 }
 onMounted(async () => {
   isLoading.value = true
   await Promise.all([
-    userStore.get(),
-    cartStore.get(),
     cartStore.getDelivery()
   ])
+  checkoutModel.userProfileId = userStore.profile.id;
+  checkoutModel.address = userStore.profile.address;
+  checkoutModel.comment = ""
   isLoading.value = false
 
 })

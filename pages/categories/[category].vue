@@ -7,7 +7,7 @@
 
             <li class="breadcrumb-item"><a href="/">Главная</a></li>
             <li class="breadcrumb-item"><a href="/categories/">Категории</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ translateCategory(route.params.category) }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ translateCategory(route.params.category as string) }}</li>
           </ol>
         </nav>
         <div class="row">
@@ -27,7 +27,7 @@
                         <!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
                         <figure>
                           <a href="#" :title="item.caption">
-                            <img :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
+                            <img :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
                           </a>
                         </figure>
                         <div class="product-body">
@@ -80,7 +80,7 @@
 import {reactive} from "vue";
 const route = useRoute();
 const isLoading = useState("isLoading");
-const translationMap = {
+const translationMap:any = {
   "dlya-doma-i-sada": "для дома и сада",
   "chipsyi-i-sneki": "чипсы и снеки",
   "chaj-i-kofe": "чай и кофе",
@@ -99,9 +99,9 @@ const translationMap = {
   "hleb-i-vyipechka": "хлеб и выпечка"
 };
 useHead({
-  title: `DukonGO - ${translateCategory(route.params.category)}`,
+  title: `DukonGO - ${translateCategory(route.params.category as string)}`,
 })
-definePageMeta({ middleware: ["auth"] });
+
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 
 const cartStore = useCartStore();
@@ -112,7 +112,7 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 }));
 
 
-function translateCategory(category) {
+function translateCategory(category:string) {
   return translationMap[category] || category.replace(/-/g, " ");
 }
 

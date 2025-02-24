@@ -5,7 +5,6 @@
     <div class="toast-container p-3" id="toastPlacement">
       <div class="toast">
         <div class="toast-header">
-          <img src="..." class="rounded me-2" alt="...">
           <strong class="me-auto">Bootstrap</strong>
           <small>11 mins ago</small>
         </div>
@@ -19,7 +18,7 @@
   <AppFooter/>
 </template>
 <script setup lang="ts">
-import AppHeader from "../components/AppHeader";
+import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue"
 import {onMounted} from "vue";
 const toast = ref();

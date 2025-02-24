@@ -3,13 +3,14 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     const userStore = useUserStore();
     const cartStore = useCartStore();
     try {
-        // Пытаемся выполнить вход
         const auth = authStore.tryLogin();
-        // Если вход успешен, загружаем данные пользователя
         if (auth) {
-
-            await userStore.get();
-            await cartStore.get();
+            if(!userStore.profile){
+                await userStore.get();
+            }
+            if(!cartStore.cart){
+                await cartStore.get();
+            }
         }
     } catch (error) {
         console.error('Error during plugin initialization:', error);

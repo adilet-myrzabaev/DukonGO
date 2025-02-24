@@ -7,8 +7,18 @@ export default defineNuxtConfig({
       '~/plugins/vue-the-mask.ts',
       '~/plugins/autoLogin.ts',
   ],
+  nitro: {
+    compressPublicAssets:true,
+    devProxy: {
+      "/api/v1": {
+        target: "https://dukongo.kg/api/v1",
+        changeOrigin: true,
+        prependPath: true,
+      },
+    },
+  },
   css: ["bootstrap/dist/css/bootstrap.min.css"],
-    // router: {
-    //     middleware: ['auth'],
-    // },
+    router: {
+        
+    },
 })

@@ -31,7 +31,7 @@ import axios from "axios";
 useHead({
   title: "DukonGO - Смена пароля",
 })
-definePageMeta({ middleware: ["auth"] });
+
 const userStore = useUserStore()
 const confirmPassword = ref('')
 
@@ -55,7 +55,7 @@ console.log(model)
     return
   }
   try {
-    await axios.put('https://manage.dukongo.kg/api/v1/Account/changePassword', model)
+    await axios.put('/api/v1/Account/changePassword', model)
     await router.push('/')
   } catch(e) {
     console.log(e)
