@@ -40,7 +40,7 @@ useHead({
   title: "DukonGO - Войти",
 })
 const authStore = useAuthStore();
-const toastComponent = ref(null);
+const toastComponent = ref();
 
 const signInModel = reactive({
   email: '+996',
