@@ -76,7 +76,6 @@ const register = async () => {
   registerModel.email = registerModel.email.replace(/\D/g, '');
   try{
     await authStore.register(registerModel);
-    await router.push("/");
   } catch (e) {
     console.error(e);
   }
