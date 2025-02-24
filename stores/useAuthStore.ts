@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { computed, ref, type Ref } from "vue";
 import axios from "axios";
+
+import Cookies from "js-cookie";
 import { isJwtValid, tokenName } from "~/stores/token";
 import { useUserStore } from "~/stores/useUserStore";
 import {useRouter} from "vue-router";
@@ -20,6 +22,7 @@ export const useAuthStore = defineStore("auth", () => {
             userStore.profile = data.profile;
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+            Cookies.set(tokenName, token.value, { expires: 7 });
             const _token = useCookie(tokenName, { maxAge: 7 });
             _token.value =  token.value as string;   
             console.log(_token.value);
