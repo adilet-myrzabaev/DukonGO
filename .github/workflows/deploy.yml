@@ -31,4 +31,4 @@ jobs:
         run: npm ci && npm run build
 
       - name: Copy code to remote
-        run: rsync -a --delete ./output/ root@dukongo.kg:/app/www/nuxt    
+        run: rsync -a --delete ./.output/ root@dukongo.kg:/app/www/nuxt    
