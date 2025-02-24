@@ -205,7 +205,6 @@ const addOrder = async (product: any) => {
   if (checkoutModel.address === "" && checkoutModel.address === null) return;
   checkoutModel.userProfileId = userStore.profile.id;
   if (product){
-    isLoading.value = true
     try {
       await axios.post(`/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
       await cartStore.get()
@@ -214,7 +213,6 @@ const addOrder = async (product: any) => {
     }catch(error){
       console.log(error)
     } finally {
-      isLoading.value = false;
       router.push("/");
 
     }
