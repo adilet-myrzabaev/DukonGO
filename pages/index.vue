@@ -218,8 +218,10 @@
               <h2 class="my-5">Совершайте покупки легко и быстро с приложением DukonGO!</h2>
               <p>Экономьте время и заказывайте любимые товары в пару кликов. Удобный интерфейс, быстрая доставка и выгодные предложения — всё для вашего комфорта! 🛒📱</p>
               <div class="d-flex gap-2 flex-wrap">
-                <img src="/assets/images/app-store.jpg" alt="app-store">
-                <img src="/assets/images/google-play.jpg" alt="google-play">
+                <a href="/dukongo.apk" download>
+                  <img src="/assets/images/google-play.jpg" alt="google-play">
+
+                </a>
               </div>
             </div>
           </div>
