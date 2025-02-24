@@ -27,7 +27,7 @@
                         <!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
                         <figure>
                           <a href="#" :title="item.caption">
-                            <img :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
+                            <img :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
                           </a>
                         </figure>
                         <div class="product-body">

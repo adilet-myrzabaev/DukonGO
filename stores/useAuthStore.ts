@@ -13,7 +13,7 @@ export const useAuthStore = defineStore("auth", () => {
     const isAuthenticate = computed(() => Boolean(token.value));
     const userStore = useUserStore();
     const cartStore = useCartStore();
-    const baseUrl = "https://manage.dukongo.kg/api/v1";
+    const baseUrl = "/api/v1";
 
     const login = async (loginModel: any) => {
         try {
@@ -63,7 +63,7 @@ export const useAuthStore = defineStore("auth", () => {
     const register = async (registerModel: any) => {
         console.log(registerModel.email+ registerModel.password);
         try {
-            const {data} = await axios.post(`${baseUrl}/security/auth/register/`, registerModel);
+            const {data} = await axios.post(`/security/auth/register/`, registerModel);
 
             token.value = data.token;
             userStore.profile = data.profile;

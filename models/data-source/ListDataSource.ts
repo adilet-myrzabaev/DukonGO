@@ -50,7 +50,7 @@ export class ListDataSource  {
 
     async get() {
         try {
-            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/` + this.queryParams);
+            const { data } = await axios.get(`/api/v1/public/${this.className}/` + this.queryParams);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;
@@ -69,7 +69,7 @@ export class CommodityDataSource extends ListDataSource {
 
     async getProduct() {
         try {
-            const { data } = await axios.get(`https://manage.dukongo.kg/api/v1/public/${this.className}/name/${this.idName}`, this.queryParams);
+            const { data } = await axios.get(`/api/v1/public/${this.className}/name/${this.idName}`, this.queryParams);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;

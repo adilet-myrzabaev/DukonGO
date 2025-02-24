@@ -4,7 +4,7 @@ import axios from "axios";
 export const useUserStore = defineStore("user", () => {
     const authStore = useAuthStore();
     const profile: Ref = ref(null);
-    const baseUrl = "https://manage.dukongo.kg/api/v1";
+    const baseUrl = "/api/v1";
     const get = async () => {
         try {
             if(profile.value != null) return profile.value;

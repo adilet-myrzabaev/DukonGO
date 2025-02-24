@@ -14,7 +14,7 @@
             </div>
           </div>
           <div v-for="item in cartStore.cartItems" class="cart">
-            <img class="cart__image" :src="`https://manage.dukongo.kg/api/v1/componentimage/${item.defaultImageId}.jpg`" alt="">
+            <img class="cart__image" :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" alt="">
             <div class="cart-body">
               <div class="cart__item">
                 <h2 class="cart__caption">{{ item.caption }}</h2>
@@ -207,7 +207,7 @@ const addOrder = async (product: any) => {
   if (product){
     isLoading.value = true
     try {
-      await axios.post(`https://manage.dukongo.kg/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
+      await axios.post(`/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
       await cartStore.get()
       checkoutModel.address = "";
       checkoutModel.comment = ""
