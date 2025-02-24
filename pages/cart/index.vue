@@ -175,7 +175,6 @@ import axios from "axios";
 const router = useRouter();
 const cartStore = useCartStore();
 const userStore = useUserStore();
-const checkoutModal = ref()
 const isLoading = useState("isLoading");
 const globalError = ref("");
 const errors = ref({
@@ -203,12 +202,13 @@ const validateForm = () => {
 
 const addOrder = async (product: any) => {
   if (checkoutModel.address === "" && checkoutModel.address === null) return;
-  checkoutModel.userProfileId = userStore.profile.id;
+  checkoutModel.userProfileId = userStore.profile!.id;
   if (product){
     try {
       await axios.post(`/api/v1/public/order/?cartId=${cartStore.cart.id}`, checkoutModel)
       await cartStore.get()
-      checkoutModel.address = "";
+      checkoutModel.userProfileId = userStore.profile!.id;
+      checkoutModel.address = userStore.profile!.address;
       checkoutModel.comment = ""
     }catch(error){
       console.log(error)
@@ -221,10 +221,11 @@ const addOrder = async (product: any) => {
 onMounted(async () => {
   isLoading.value = true
   await Promise.all([
-    userStore.get(),
-    cartStore.get(),
     cartStore.getDelivery()
   ])
+  checkoutModel.userProfileId = userStore.profile.id;
+  checkoutModel.address = userStore.profile.address;
+  checkoutModel.comment = ""
   isLoading.value = false
 
 })
