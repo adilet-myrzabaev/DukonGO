@@ -32,6 +32,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     const logout = () => {
         try {
+            router.push("login/signin")
             token.value = null;
             userStore.profile = null;
             const userIdCookie = useCookie(tokenName);
