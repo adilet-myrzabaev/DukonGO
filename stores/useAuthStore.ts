@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { computed, ComputedRef, ref, Ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { isJwtValid, tokenName } from "~/stores/token";
@@ -10,7 +10,7 @@ import {useRouter} from "vue-router";
 export const useAuthStore = defineStore("auth", () => {
     const token: Ref<string | null> = ref(null);
     const router = useRouter();
-    const isAuthenticate: ComputedRef = computed(() => Boolean(token.value));
+    const isAuthenticate = computed(() => Boolean(token.value));
     const userStore = useUserStore();
     const cartStore = useCartStore();
     const baseUrl = "https://manage.dukongo.kg/api/v1";
