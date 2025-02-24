@@ -44,7 +44,8 @@ export const useAuthStore = defineStore("auth", () => {
     
     const tryLogin = (): boolean => {
         const _jwtToken = useCookie(tokenName);
-
+        console.log(_jwtToken.value);
+        
         if (!isJwtValid(_jwtToken.value)) {
             token.value = null;
             return false;
@@ -52,8 +53,6 @@ export const useAuthStore = defineStore("auth", () => {
 
         token.value = _jwtToken.value as string;
         axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-        const _token = useCookie(tokenName, { maxAge: 7 });
-        _token.value = _jwtToken.value as string;
         return true;
     };
     
