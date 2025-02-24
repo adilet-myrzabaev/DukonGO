@@ -69,11 +69,13 @@ export const useAuthStore = defineStore("auth", () => {
             token.value = data.token as string;
             userStore.profile = data.profile;
 
+
+
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
             Cookies.set(tokenName, token.value, { expires: 7 });
             const _token = useCookie(tokenName, { maxAge: 7 });
             _token.value =  token.value as string;   
-            console.log(_token.value);
+            console.log(token.value);
                     
             await router.push("/");
 
