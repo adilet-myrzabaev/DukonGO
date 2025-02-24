@@ -12,11 +12,11 @@ export const useAuthStore = defineStore("auth", () => {
     const router = useRouter();
     const isAuthenticate = computed(() => Boolean(token.value));
     const userStore = useUserStore();
-    const baseUrl = "/api/v1";
+    const baseUrl = "";
 
     const login = async (loginModel: any) => {
         try {
-            const { data } = await axios.post(`${baseUrl}/security/auth/login/`, loginModel);
+            const { data } = await axios.post(`/api/v1/security/auth/login/`, loginModel);
 
             token.value = data.token as string;
             userStore.profile = data.profile;
@@ -66,15 +66,16 @@ export const useAuthStore = defineStore("auth", () => {
         try {
             const {data} = await axios.post(`/api/v1/security/auth/register/`, registerModel);
 
-            token.value = data.token;
+            token.value = data.token as string;
             userStore.profile = data.profile;
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-            Cookies.set(tokenName, token.value as string, { expires: 7 });
+            Cookies.set(tokenName, token.value, { expires: 7 });
             const _token = useCookie(tokenName, { maxAge: 7 });
             _token.value =  token.value as string;   
+            console.log(_token.value);
+                    
             await router.push("/");
-
 
         } catch (error) {
             console.log(error);
