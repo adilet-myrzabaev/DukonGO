@@ -64,7 +64,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     const register = async (registerModel: any) => {
         try {
-            const {data} = await axios.post(`/security/auth/register/`, registerModel);
+            const {data} = await axios.post(`/api/v1/security/auth/register/`, registerModel);
 
             token.value = data.token;
             userStore.profile = data.profile;
