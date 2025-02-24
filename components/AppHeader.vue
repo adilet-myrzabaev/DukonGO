@@ -60,10 +60,7 @@
       </defs>
     </svg>
 
-    <div v-if="loading" class="preloader-wrapper">
-      <div class="preloader">
-      </div>
-    </div>
+  
     <!--  sidebar  -->
     <!--  my cart  -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
@@ -183,7 +180,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li v-for="item in dropdownItems" :key="item.id">
-                    <a class="dropdown-item" @click="item.action" :href="item.url">{{ item.label }}</a>
+                    <a class="dropdown-item" :href="item.url">{{ item.label }}</a>
                   </li>
                 </ul>
               </li>
@@ -198,7 +195,6 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import {ca} from "cronstrue/dist/i18n/locales/ca";
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
@@ -249,7 +245,7 @@ const authorizedItems = ref([
   }
 ]);
 onMounted(() => {
-  dropdownProfile.value.addEventListener("show.bs.dropdown", (e) => {
+  dropdownProfile.value.addEventListener("show.bs.dropdown", (e:any) => {
       if (authStore.isAuthenticate){
         dropdownItems.value = [];
         dropdownItems.value = [...authorizedItems.value];
