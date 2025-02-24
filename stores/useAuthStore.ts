@@ -73,7 +73,8 @@ export const useAuthStore = defineStore("auth", () => {
             Cookies.set(tokenName, token.value as string, { expires: 7 });
             const _token = useCookie(tokenName, { maxAge: 7 });
             _token.value =  token.value as string;   
-                    
+            await router.push("/");
+
 
         } catch (error) {
             console.log(error);
