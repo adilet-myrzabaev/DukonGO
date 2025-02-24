@@ -25,10 +25,9 @@ export const useAuthStore = defineStore("auth", () => {
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
             Cookies.set(tokenName, token.value, { expires: 7 });
-            await router.push("/");
+            window.location.href = '/';
             return data;
         } catch (error) {
-            console.log(error);
             throw error;
         }
     };

@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       '~/plugins/autoLogin.ts',
   ],
   css: ["bootstrap/dist/css/bootstrap.min.css"],
-    router: {
-        middleware: ['auth'],
-    },
+    // router: {
+    //     middleware: ['auth'],
+    // },
 })

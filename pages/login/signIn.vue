@@ -33,13 +33,14 @@
 <script setup lang="ts">
 import {useAuthStore} from "~/stores/useAuthStore";
 import {useRouter} from "vue-router";
-import Toast from "~/components/Toast.vue";
+const { $toast } = useNuxtApp();
 definePageMeta({
-  layout: 'empty'
+  layout: 'empty',
 })
 useHead({
   title: "DukonGO - Войти",
 })
+
 const router = useRouter()
 const authStore = useAuthStore();
 const toastComponent = ref(null);
@@ -54,7 +55,7 @@ const login = async () => {
 
   signInModel.email = signInModel.email.replace(/\D/g, '');
   const response = await authStore.login(signInModel);
-
+  // $toast.success('Success Message');
 
 
 

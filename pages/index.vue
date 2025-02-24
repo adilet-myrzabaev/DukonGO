@@ -234,6 +234,18 @@
 useHead({
   title: "Главная страница",
 })
+definePageMeta({
+  middleware: "auth",
+})
+// definePageMeta({
+//   middleware: function(to, from) {
+//     const authStore = useAuthStore();
+//
+//     if (!authStore.isAuthenticate) {
+//       return navigateTo('/login/signIn');
+//     }
+//   },
+// });
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 const authStore = useAuthStore();
 const userStore = useUserStore();

@@ -27,7 +27,10 @@
 useHead({
   title: "DukonGO - Категории",
 })
-definePageMeta({ middleware: ["auth"] });
+definePageMeta({
+  middleware: "auth",
+  auth : 'guest'
+})
 const categories = ref([
   {
     id: 3335,

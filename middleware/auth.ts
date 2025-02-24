@@ -1,22 +1,16 @@
 import { defineNuxtRouteMiddleware, navigateTo } from '#app';
 
-export default defineNuxtRouteMiddleware((to, from) => {
-    const authStore = useAuthStore();
-    const isAuthenticated = authStore.tryLogin();
-
-
-    console.log('From auth middleware')
-    console.log('to', to)
-    console.log('from', from)
-    console.log('authenticated', authStore.isAuthenticate)
-
-    // If the user is authenticated, continue to the requested route
-    if (authStore.isAuthenticate === true) {
-        console.log('not logged in', to.fullPath)
-        return;
+export default defineNuxtRouteMiddleware(   async (to, from) => {
+    const auth = useAuthStore();
+    await auth.tryLogin()
+    // alert(auth.isAuthenticate)
+    // if (auth.isAuthenticate && to.path !== '/login/signIn') {
+    //     return navigateTo(to.fullPath);
+    // }
+    if (auth.isAuthenticate && to.path === '/login/signIn') {
+        return navigateTo('/');
     }
-
-    // If the user is not authenticated, redirect to the login page
-    return navigateTo('/login');
-
+    if (!auth.isAuthenticate && to.path !== '/login/signIn') {
+        return navigateTo('/login/signIn');
+    }
 });
