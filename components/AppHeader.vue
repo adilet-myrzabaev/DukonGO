@@ -180,7 +180,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li v-for="item in dropdownItems" :key="item.id">
-                    <a class="dropdown-item" :href="item.url">{{ item.label }}</a>
+                    <a class="dropdown-item" @click.prevent="item.action()" :href="item.url">{{ item.label }}</a>
                   </li>
                 </ul>
               </li>
@@ -204,13 +204,17 @@ const dropdownItems = ref([
     id: 1,
     label: "Войти",
     url: "/login/signIn",
-    cssClass: "btn btn-primary"
+    cssClass: "btn btn-primary",
+    action: () => {}
+
   },
   {
     id: 2,
     label: "Регистрация",
     url: "/login/signUp",
-    cssClass: "btn btn-outline-primary"
+    cssClass: "btn btn-outline-primary",
+    action: () => {}
+
   }
 ])
 
@@ -219,20 +223,25 @@ const authorizedItems = ref([
     id: 1,
     label: "Профиль пользователя",
     url: "/User/Account/Profile",
-    cssClass: "dropdown-menu__list"
+    cssClass: "dropdown-menu__list",
+    action: () => {}
+
   },
   {
     id: 2,
     label: "Мои заказы",
     url: "/user/orders/",
-    cssClass: "dropdown-menu__list"
+    cssClass: "dropdown-menu__list",
+    action: () => {}
+
   },
 
   {
     id: 3,
     label: "Смена пароля",
     url: "/User/Account/ResetPassword/",
-    cssClass: "dropdown-menu__list"
+    cssClass: "dropdown-menu__list",
+    action: () => {}
   },
   {
     id: 4,
