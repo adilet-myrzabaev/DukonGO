@@ -23,9 +23,6 @@ export const useAuthStore = defineStore("auth", () => {
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
             Cookies.set(tokenName, token.value, { expires: 7 });
-            const _token = useCookie(tokenName, { maxAge: 7 });
-            _token.value =  token.value as string;   
-            console.log(_token.value);
                     
             await router.push("/");
             return data;
@@ -49,7 +46,7 @@ export const useAuthStore = defineStore("auth", () => {
     
     const tryLogin = (): boolean => {
         const _jwtToken = useCookie(tokenName);
-        console.log(_jwtToken.value);
+        console.log(_jwtToken);
         
         if (!isJwtValid(_jwtToken.value)) {
             token.value = null;
@@ -69,13 +66,8 @@ export const useAuthStore = defineStore("auth", () => {
             token.value = data.token as string;
             userStore.profile = data.profile;
 
-
-
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
             Cookies.set(tokenName, token.value, { expires: 7 });
-            const _token = useCookie(tokenName, { maxAge: 7 });
-            _token.value =  token.value as string;   
-            console.log(token.value);
                     
             await router.push("/");
 
