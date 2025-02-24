@@ -35,4 +35,4 @@ jobs:
       
       
       - name: Restart container
-        run: ssh root@$dukongo.kg "cd /app/infrastructure && docker compose down && docker compose up -d"
+        run: ssh root@dukongo.kg "cd /app/infrastructure && docker compose down && docker compose up -d"
