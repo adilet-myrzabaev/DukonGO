@@ -211,11 +211,12 @@ const addOrder = async (product: any) => {
       await cartStore.get()
       checkoutModel.address = "";
       checkoutModel.comment = ""
-      router.push("/");
     }catch(error){
       console.log(error)
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
+      router.push("/");
+
     }
   }
 }
