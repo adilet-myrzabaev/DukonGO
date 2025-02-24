@@ -23,7 +23,7 @@
         </div>
         <button @click="login()" class="btn btn-primary w-100" type="submit">Войти</button>
         <div class="registerOrLogin">
-          <p> <a href="/login/signUp">Зарегистрироваться</a></p>
+          <p> <a href="/login/signup">Зарегистрироваться</a></p>
         </div>
     </div>
   </div>
