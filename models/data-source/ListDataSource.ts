@@ -61,15 +61,16 @@ export class ListDataSource  {
 }
 
 export class CommodityDataSource extends ListDataSource {
-    idName: string;
+    idName: string = "";
+
     constructor(init: Partial<CommodityDataSource>) {
         super(init);
-        this.idName = init.idName;
+        this.idName = init.idName ?? "";
     }
 
     async getProduct() {
         try {
-            const { data } = await axios.get(`/api/v1/public/${this.className}/name/${this.idName}`, this.queryParams);
+            const { data } = await axios.get(`/api/v1/public/${this.className}/name/${this.idName}`);
             this.items = data.items;
             this.total = data.total;
             this.loaded = true;

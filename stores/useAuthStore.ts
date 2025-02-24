@@ -1,10 +1,8 @@
 import { defineStore } from "pinia";
 import { computed, ref, type Ref } from "vue";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { isJwtValid, tokenName } from "~/stores/token";
 import { useUserStore } from "~/stores/useUserStore";
-import {useCartStore} from "~/stores/useCartStore";
 import {useRouter} from "vue-router";
 
 export const useAuthStore = defineStore("auth", () => {
@@ -12,19 +10,18 @@ export const useAuthStore = defineStore("auth", () => {
     const router = useRouter();
     const isAuthenticate = computed(() => Boolean(token.value));
     const userStore = useUserStore();
-    const cartStore = useCartStore();
     const baseUrl = "/api/v1";
 
     const login = async (loginModel: any) => {
         try {
             const { data } = await axios.post(`${baseUrl}/security/auth/login/`, loginModel);
 
-            console.log(data);
             token.value = data.token as string;
             userStore.profile = data.profile;
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-            Cookies.set(tokenName, token.value, { expires: 7 });
+            const _token = useCookie(tokenName, { maxAge: 7 });
+            _token.value =  token.value as string;           
             await router.push("/");
             return data;
         } catch (error) {
@@ -61,7 +58,6 @@ export const useAuthStore = defineStore("auth", () => {
     
 
     const register = async (registerModel: any) => {
-        console.log(registerModel.email+ registerModel.password);
         try {
             const {data} = await axios.post(`/security/auth/register/`, registerModel);
 
@@ -69,7 +65,9 @@ export const useAuthStore = defineStore("auth", () => {
             userStore.profile = data.profile;
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-            Cookies.set(tokenName, token.value, { expires: 7 });
+            const _token = useCookie(tokenName, { maxAge: 7 });
+            _token.value = token.value as string;
+
         } catch (error) {
             console.log(error);
             throw error;

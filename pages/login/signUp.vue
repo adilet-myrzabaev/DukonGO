@@ -63,7 +63,7 @@ const authStore = useAuthStore();
 const router = useRouter()
 
 const registerModel = reactive({
-  email: '',
+  email: '+996',
   password: '',
   userProfile: {
     fullName: '',

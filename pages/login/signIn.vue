@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import {useAuthStore} from "~/stores/useAuthStore";
-import {useRouter} from "vue-router";
 import Toast from "~/components/Toast.vue";
 definePageMeta({
   layout: 'empty'
@@ -40,25 +39,17 @@ definePageMeta({
 useHead({
   title: "DukonGO - Войти",
 })
-const router = useRouter()
 const authStore = useAuthStore();
 const toastComponent = ref(null);
 
 const signInModel = reactive({
-  email: '',
+  email: '+996',
   password: ''
 })
 
 const login = async () => {
-
-
   signInModel.email = signInModel.email.replace(/\D/g, '');
-  const response = await authStore.login(signInModel);
-
-
-
-
-  console.log(response);
+  await authStore.login(signInModel);
 }
 
 </script>

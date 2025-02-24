@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 export const useCartStore = defineStore("cart", () => {
-    const cartItems = ref([])
-    const cart = ref()
-    const total = ref(0)
+    const cartItems = ref<any[]>([])
+    const cart:any = ref()
+    const total:any = ref(0)
     const userStore = useUserStore();
     const delivery = ref(0)
 
     const totalSum = computed(() => {
-        return cartItems.value.reduce((t, item) => {
+        return cartItems.value.reduce((t, item:any) => {
             return t + item.price * item.count;
         }, 0);
     });
@@ -31,7 +31,7 @@ export const useCartStore = defineStore("cart", () => {
     }
 
     const hasItem = (product: any) => {
-        return cartItems.value.some(cartItem => cartItem.productId === product.id);
+        return cartItems.value.some((cartItem:any) => cartItem.productId === product.id);
     }
 
     const incrementCart = async (product: any) => {
