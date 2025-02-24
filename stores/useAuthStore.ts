@@ -70,8 +70,10 @@ export const useAuthStore = defineStore("auth", () => {
             userStore.profile = data.profile;
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+            Cookies.set(tokenName, token.value as string, { expires: 7 });
             const _token = useCookie(tokenName, { maxAge: 7 });
-            _token.value = token.value as string;
+            _token.value =  token.value as string;   
+                    
 
         } catch (error) {
             console.log(error);
