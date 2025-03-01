@@ -9,11 +9,11 @@
         </ol>
       </nav>
       <div class="row">
-        <div v-for="item in categories" :key="item.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div v-for="item in categories" :key="item.id" class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4">
           <a :href="`/categories/${item.name}`">
             <div class="category-card" :style="{backgroundImage: `url('/images/categories/${item.defaultImageId}.png')`} ">
 <!--              <img class="category-image" :src="`/images/categories/${item.defaultImageId}.png`" alt="Category Thumbnail">-->
-              <h3 class="category-title">{{ item.caption }}</h3>
+              <h3 class="category-title category-title--sm">{{ item.caption }}</h3>
             </div>
           </a>
         </div>

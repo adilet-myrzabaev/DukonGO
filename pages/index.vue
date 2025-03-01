@@ -58,7 +58,7 @@
     </div>
   </section>
 
-  <section class="py-md-5 overflow-hidden">
+  <section class="py-md-5 d-none d-md-block overflow-hidden">
     <div class="container-fluid">
       <div class="row">
         <div class="section-header d-flex flex-wrap justify-content-between mb-2 mb-md-5">
@@ -78,6 +78,35 @@
     </div>
   </section>
 
+  <section class="d-block d-md-none overflow-hidden">
+    <div class="container-fluid">
+      <h2 class="section-title">Популярные категории</h2>
+      <div id="categoryCarousel" class="carousel slide" data-bs-touch="true" data-bs-interval="false">
+        <div class="carousel-inner">
+          <div v-for="(item, index) in categories" :key="item.id" :class="['carousel-item px-2', { 'active': index === 0 }]">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <a :href="`/categories/${item.name}`">
+                  <div class="category-card" :style="{ backgroundImage: `url('/images/categories/${item.defaultImageId}.png')` }">
+                    <h3 class="category-title">{{ item.caption }}</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!--  Products  -->
   <section class="py-md-5">
     <div class="container-fluid">
@@ -86,13 +115,13 @@
         <div class="col-md-12">
 
           <div class="bootstrap-tabs product-tabs">
-            <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-              <h3>Товары</h3>
+            <div class="tabs-header d-flex justify-content-between border-bottom my-md-5">
+              <h3>Сезонные продукты</h3>
             </div>
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
 
-                <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                <div class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
                   <div v-for="item in commodityDataSource.items" :key="item.id" class="col mb-4">
                     <div class="product-item">
@@ -111,18 +140,18 @@
                           </div>
                           <div class="d-flex align-items-end flex-column">
                             <template v-if="item.productCount > 0">
-                              <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
-                              <span @click="cartStore.decrement(item)" class="input-group-btn">
+                              <div v-if="cartStore.hasItem(item)" class="input-group product-qty product-qty--mobile">
+                                <span @click="cartStore.decrement(item)" class="input-group-btn">
                                   <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
                                     <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
                                   </button>
-                              </span>
+                                </span>
                                 <span class="input-number">{{item.count}}</span>
                                 <span @click="cartStore.increment(item)" class="input-group-btn">
                                   <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
                                       <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
                                   </button>
-                              </span>
+                                </span>
                               </div>
                               <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
                             </template>
@@ -236,21 +265,11 @@
 useHead({
   title: "Главная страница",
 })
-definePageMeta({
-  middleware: "auth",
-})
-// definePageMeta({
-//   middleware: function(to, from) {
-//     const authStore = useAuthStore();
-//
-//     if (!authStore.isAuthenticate) {
-//       return navigateTo('/login/signIn');
-//     }
-//   },
-// });
+
 import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 const userStore = useUserStore();
 const cartStore = useCartStore();
+const isLoading = useState("isLoading");
 
 const categories = ref([
   {
@@ -284,13 +303,16 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 }));
 
 onMounted(async () => {
+  isLoading.value = true;
   await userStore.get()
   await commodityDataSource.get();
   await cartStore.get()
+  isLoading.value = false
 })
 </script>
 
 <style scoped>
+
 .bg-image{
   background-image: url('/assets/images/background-pattern.jpg');
   background-repeat: no-repeat;

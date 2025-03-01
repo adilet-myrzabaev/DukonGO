@@ -169,6 +169,7 @@ export const useCartStore = defineStore("cart", () => {
                     console.log(p)
                     return p.id !== productId;
                 })
+                await get();
             } catch (error) {
                 console.error('Ошибка при удалении товара:', error);
             }

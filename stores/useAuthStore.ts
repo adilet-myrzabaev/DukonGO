@@ -12,12 +12,10 @@ export const useAuthStore = defineStore("auth", () => {
     const router = useRouter();
     const isAuthenticate = computed(() => Boolean(token.value));
     const userStore = useUserStore();
-    const baseUrl = "";
 
     const login = async (loginModel: any) => {
         try {
             const { data } = await axios.post(`/api/v1/security/auth/login/`, loginModel);
-
             token.value = data.token as string;
             userStore.profile = data.profile;
 
@@ -27,14 +25,13 @@ export const useAuthStore = defineStore("auth", () => {
             await router.push("/");
             return data;
         } catch (error) {
-            console.log(error);
             throw error;
         }
     };
 
     const logout = () => {
         try {
-            router.push("login/signin")
+            router.push("login/signIn");
             token.value = null;
             userStore.profile = null;
             const userIdCookie = useCookie(tokenName);
@@ -46,8 +43,7 @@ export const useAuthStore = defineStore("auth", () => {
     
     const tryLogin = (): boolean => {
         const _jwtToken = useCookie(tokenName);
-        console.log(_jwtToken);
-        
+
         if (!isJwtValid(_jwtToken.value)) {
             token.value = null;
             return false;

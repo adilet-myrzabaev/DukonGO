@@ -115,10 +115,8 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Оформление заказа</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body pt-0">
             <div ref="summary" class="summary">
-              <div><h5><b>ОФОРМИТЬ ЗАКАЗ</b></h5></div>
-              <hr>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Адрес</label>
                 <input
@@ -152,7 +150,7 @@
               </div>
               <div class="d-flex align-items-center justify-content-between pt-2" style="border-top: 1px solid rgba(0,0,0,.1);">
                 <small>Итого: </small>
-                <div>{{ cartStore.totalSum }} с</div>
+                <div>{{ cartStore.totalSum + +cartStore.delivery }} с</div>
               </div>
               <div class="text-danger mb-3">Оплата при получении</div>
               <button data-bs-toggle="modal" data-bs-target="#checkModal" class="btn btn-primary btn-primary--md-text w-100">Оформить</button>

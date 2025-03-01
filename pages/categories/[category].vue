@@ -14,13 +14,13 @@
           <div class="col-md-12">
 
             <div class="bootstrap-tabs product-tabs">
-              <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                <h3>Товары</h3>
+              <div class="tabs-header d-flex justify-content-between border-bottom my-md-5">
+                <h3>{{ translateCategory(route.params.category as string) }}</h3>
               </div>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
 
-                  <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                  <div class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
                     <div v-for="item in commodityDataSource.items" :key="item.id" class="col mb-4">
                       <div class="product-item">
@@ -39,7 +39,7 @@
                             </div>
                             <div class="d-flex align-items-end flex-column">
                               <template v-if="item.productCount > 0">
-                                <div v-if="cartStore.hasItem(item)" class="input-group product-qty">
+                                <div v-if="cartStore.hasItem(item)" class="input-group product-qty product-qty--mobile">
                                 <span @click="cartStore.decrement(item)" class="input-group-btn">
                                     <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
                                       <svg width="16" height="16"><use xlink:href="#minus"></use></svg>

@@ -22,3 +22,18 @@
     font-size: 24px;
 }
 
+@media screen and (max-width: 576px) {
+    .category-card{
+        aspect-ratio: 16/8;
+        height: 140px;
+        padding-top: 10px;
+        padding-left: 10px;
+        border-radius: 10px;
+    }
+    .category-title{
+        font-size: 18px;
+    }
+    .category-title--sm{
+        font-size: 16px;
+    }
+}

@@ -114,12 +114,56 @@
       <div class="offcanvas-body">
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Поиск</span>
+            <span >Поиск</span>
           </h4>
           <form role="search" action="#" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Что вы хотели видеть?" aria-label="What are you looking for?">
-            <button class="btn btn-dark rounded-end rounded-0" type="submit">Искать</button>
+            <input v-model="searchProduct" class="form-control rounded-start rounded-0 bg-light" placeholder="Что вы хотели видеть?" aria-label="What are you looking for?">
+            <button @click="search" class="btn btn-dark rounded-end rounded-0" type="submit">Искать</button>
           </form>
+          <div class="product-grid row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+            <div v-for="item in commodityDataSource.items" :key="item.id" class="col mt-4">
+              <div class="product-item">
+                <!--                      <span class="badge bg-success position-absolute m-2">-30%</span>-->
+                <figure>
+                  <a href="#" :title="item.caption">
+                    <img :src="`/api/v1/componentimage/${item.defaultImageId}.jpg`" class="product-image" alt="">
+                  </a>
+                </figure>
+                <div class="product-body">
+                  <h3 class="product__caption">{{ item.caption }}</h3>
+                  <div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                      <span class="price">{{ item.price }} c</span>
+                      <span class="qty">{{item.unit}}</span>
+                    </div>
+                    <div class="d-flex align-items-end flex-column">
+                      <template v-if="item.productCount > 0">
+                        <div v-if="cartStore.hasItem(item)" class="input-group product-qty product-qty--mobile">
+                                <span @click="cartStore.decrement(item)" class="input-group-btn">
+                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                  </button>
+                                </span>
+                          <span class="input-number">{{item.count}}</span>
+                          <span @click="cartStore.increment(item)" class="input-group-btn">
+                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                  </button>
+                                </span>
+                        </div>
+                        <button v-else @click="cartStore.increment(item)" href="#" class=" btn btn-primary w-100">В корзину</button>
+                      </template>
+                      <template v-else>
+                        <button href="#" class=" btn btn-danger w-100">нет в наличии</button>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -162,14 +206,13 @@
                 </a>
               </li>
               <li>
-                <a href="/cart" class="rounded-circle bg-light p-2 mx-1">
+                <a href="/cart" class="position-relative rounded-circle bg-light p-2 mx-1">
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <use xlink:href="#cart"></use>
-
                   </svg>
-                  <template v-if="cartStore.total">
+                  <span class="position-absolute top-0 end-0" v-if="cartStore.total">
                     {{ cartStore.total }}
-                  </template>
+                  </span>
                 </a>
               </li>
               <li class="dropdown">
@@ -180,7 +223,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li v-for="item in dropdownItems" :key="item.id">
-                    <a class="dropdown-item" @click.prevent="item.action()" :href="item.url">{{ item.label }}</a>
+                    <a class="dropdown-item" @click="item.action()" :href="item.url">{{ item.label }}</a>
                   </li>
                 </ul>
               </li>
@@ -195,10 +238,12 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
+import {CommodityDataSource} from "~/models/data-source/ListDataSource";
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
 const dropdownProfile = ref()
+const searchProduct = ref('');
 const dropdownItems = ref([
   {
     id: 1,
@@ -217,12 +262,11 @@ const dropdownItems = ref([
 
   }
 ])
-
 const authorizedItems = ref([
   {
     id: 1,
     label: "Профиль пользователя",
-    url: "/User/Account/Profile",
+    url: "/user/account/profile",
     cssClass: "dropdown-menu__list",
     action: () => {}
 
@@ -239,7 +283,7 @@ const authorizedItems = ref([
   {
     id: 3,
     label: "Смена пароля",
-    url: "/User/Account/ResetPassword/",
+    url: "/user/account/resetPassword/",
     cssClass: "dropdown-menu__list",
     action: () => {}
   },
@@ -253,6 +297,17 @@ const authorizedItems = ref([
     }
   }
 ]);
+
+const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSource({
+  className: "commodity",
+}))
+
+const search = async () => {
+  commodityDataSource.filter.searchText = searchProduct.value;
+  await commodityDataSource.get()
+  console.log(searchProduct.value);
+}
+
 onMounted(() => {
   dropdownProfile.value.addEventListener("show.bs.dropdown", (e:any) => {
       if (authStore.isAuthenticate){

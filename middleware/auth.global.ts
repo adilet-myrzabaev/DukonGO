@@ -5,10 +5,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
     authStore.tryLogin();
     console.log(authStore.isAuthenticate );
     
-    if (authStore.isAuthenticate || to.path == '/login/signin' || to.path == '/login/signup') {
+    if (authStore.isAuthenticate || to.path == '/login/signIn' || to.path == '/login/signUp') {
         console.log('not logged in', to.fullPath)
         return;
     }
 
-    return navigateTo('/login/signin');
+    return navigateTo('/login/signIn');
 });
