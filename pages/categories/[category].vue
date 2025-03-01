@@ -118,14 +118,12 @@ function translateCategory(category:string) {
 
 onMounted(async () => {
   isLoading.value = true;
-  console.log(route.params.category, commodityDataSource);
   try {
     commodityDataSource.filter.folderName=route.params.category;
     await Promise.all([
       commodityDataSource.get(),
       cartStore.get(),
     ]);
-    console.log("pass");
   } catch (error) {
     console.error('Ошибка при загрузке данных:', error);
   }

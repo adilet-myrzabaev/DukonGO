@@ -43,9 +43,7 @@ const model = reactive({
   Password: '',
   NewPassword: ''
 })
-console.log(userStore.profile?.phoneNumber)
 const submitPassword = async (event: any) => {
-console.log(model)
   if (model.Password === '' && model.NewPassword === '' && confirmPassword.value) {
     errors.value="Поле не должно быть пустым"
     return;

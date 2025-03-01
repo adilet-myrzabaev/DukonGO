@@ -23,7 +23,6 @@ export const useCartStore = defineStore("cart", () => {
     const getDelivery = async () => {
         try {
             const {data} = await axios.get("/api/v1/public/company/delivery")
-            console.log(data)
             delivery.value = data.value
         }catch(e) {
             console.log(e)
@@ -35,7 +34,6 @@ export const useCartStore = defineStore("cart", () => {
     }
 
     const incrementCart = async (product: any) => {
-        console.log(product)
         const pr = cartItems.value.find(p => p.id === product.id);
         if (product.count >= product.productCount){
             return;
@@ -51,7 +49,6 @@ export const useCartStore = defineStore("cart", () => {
             }
 
             const {data} = await axios.post(`/api/v1/public/cartitem/`, model);
-            console.log(data)
             await get()
 
             if (pr) {
@@ -65,11 +62,9 @@ export const useCartStore = defineStore("cart", () => {
     }
 
     const decrementCart = async(product: any) => {
-        console.log(product)
         const pr = cartItems.value.find(p => {
             return p.id === product.id
         } );
-        console.log(pr)
         product.count--;
 
         if (product.count == 0){
@@ -126,7 +121,6 @@ export const useCartStore = defineStore("cart", () => {
 
     const decrement = async (product: any) => {
         if (product.count < 0){
-            console.warn("dasasdasdas")
             return;
         }
 
@@ -152,21 +146,17 @@ export const useCartStore = defineStore("cart", () => {
                 "cartId": cart.value.id,
                 "count": product.count,
             }
-            console.log(model)
             const {data} = await axios.post(`/api/v1/public/cartitem/`, model);
             await get()
         }
     }
 
     const deleteCart = async (productId: number) => {
-        console.log(productId)
         const product = cartItems.value.find(p => p.id == productId);
-        console.log(product)
         if (product) {
             try {
                 await axios.delete(`/api/v1/public/cartitem/${productId}`);
                 cartItems.value = cartItems.value.filter(p =>{
-                    console.log(p)
                     return p.id !== productId;
                 })
                 await get();
@@ -178,7 +168,6 @@ export const useCartStore = defineStore("cart", () => {
             console.log('Товар не найден в корзине');
         }
 
-        console.log(productId)
         if (product) {
             await axios.delete(`/api/v1/public/cartitem/${productId}`);
             cartItems.value = cartItems.value.filter(p => p.id === productId);

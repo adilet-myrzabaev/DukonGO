@@ -57,7 +57,6 @@ const check = async () => {
     total.value += item.price * item.count
     return t
   }, 0)
-  console.log(totalSum)
 }
 
 onMounted(async () => {

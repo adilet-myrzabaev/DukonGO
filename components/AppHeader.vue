@@ -305,7 +305,6 @@ const commodityDataSource = reactive<CommodityDataSource>(new CommodityDataSourc
 const search = async () => {
   commodityDataSource.filter.searchText = searchProduct.value;
   await commodityDataSource.get()
-  console.log(searchProduct.value);
 }
 
 onMounted(() => {

@@ -72,9 +72,7 @@ const submit = async () => {
     Address: userStore.profile.address,
   })
   try {
-    console.log(userStore.profile.phoneNumber)
     const {data} = await axios.put("/api/v1/Account/", model)
-    console.log(data)
     await userStore.get()
   }catch (e) {
     console.error(e)
