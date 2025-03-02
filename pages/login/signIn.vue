@@ -24,7 +24,7 @@
         </div>
         <button @click="login()" class="btn btn-primary w-100" type="submit">Войти</button>
         <div class="registerOrLogin">
-          <p> <nuxt-link to="/login/signup">Зарегистрироваться</nuxt-link></p>
+          <p> <nuxt-link to="/login/signUp">Зарегистрироваться</nuxt-link></p>
         </div>
     </div>
   </div>
