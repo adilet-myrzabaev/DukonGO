@@ -44,12 +44,14 @@
       </div>
     </div>
   </div>
+  <Toast ref="toastComponent" />
 </template>
 
 <script setup lang="ts">
 import {useAuthStore} from "#imports";
 import axios from "axios";
 import {useRouter} from "vue-router";
+import Toast from "~/components/Toast.vue";
 
 definePageMeta({
   layout: 'empty'
@@ -61,7 +63,7 @@ useHead({
 
 const authStore = useAuthStore();
 const router = useRouter()
-
+const toastComponent = ref()
 const registerModel = reactive({
   email: '+996',
   password: '',
@@ -78,6 +80,7 @@ const register = async () => {
     await authStore.register(registerModel);
   } catch (e) {
     console.error(e);
+    toastComponent.value.showToast("Это номер уже существует");
   }
 }
 </script>
